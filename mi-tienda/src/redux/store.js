@@ -1,50 +1,30 @@
-import { createStore } from "redux";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { combineReducers } from "redux";
+import storage from "redux-persist/lib/storage"; // Usa el almacenamiento local
+import cartReducer from "./cartReducer"; // Importamos el reducer del carrito
 
-// Cart Reducer
-const cartReducer = (state = { cart: [] }, action) => {
-  switch (action.type) {
-    case "ADD_PRODUCT": {
-      const exists = state.cart.find((p) => p.id === action.payload.id);
-      if (exists) {
-        return {
-          ...state,
-          cart: state.cart.map((p) =>
-            p.id === action.payload.id ? { ...p, quantity: p.quantity + 1 } : p
-          ),
-        };
-      }
-      return {
-        ...state,
-        cart: [...state.cart, { ...action.payload, quantity: 1 }],
-      };
-    }
-    
-    case "REMOVE_PRODUCT": {
-      const updatedCart = state.cart.map((p) =>
-        p.id === action.payload ? { ...p, quantity: p.quantity - 1 } : p
-      ).filter((p) => p.quantity > 0);
-      return { ...state, cart: updatedCart };
-    }
-    
-    case "CLEAR_CART":
-      return { ...state, cart: [] };
-    
-    default:
-      return state;
-  }
+// Configuración de persistencia
+const persistConfig = {
+  key: "root",
+  storage, // Se guardará en localStorage
 };
 
+// Combinar reducers (en caso de agregar más en el futuro)
+const rootReducer = combineReducers({
+  cart: cartReducer,
+});
 
-
-// Redux Persist Configuration
-const persistConfig = { key: "root", storage };
-const rootReducer = combineReducers({ cart: cartReducer });
+// Aplicamos Redux Persist al reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = createStore(persistedReducer);
+// Crear el store con el reducer persistente
+const store = configureStore({
+  reducer: persistedReducer,
+});
+
+// Creamos el persistor para Redux Persist
 const persistor = persistStore(store);
 
+// Exportamos el store y el persistor
 export { store, persistor };
+

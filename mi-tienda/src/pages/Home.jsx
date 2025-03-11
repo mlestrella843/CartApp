@@ -18,18 +18,19 @@ const Home = () => {
       : products.filter((product) => product.category === selectedCategory);
 
   return (
-    <div className="p-8">
-      {/* Título y Filtros en una Fila */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">🛍️ Available Products</h1>
-        <div className="flex gap-4">
+    <div className="p-4 md:p-8">
+      {/* Contenedor principal para el título y los filtros */}
+      <div className="flex flex-col md:flex-row md:justify-between items-center mb-6 gap-4">
+        <h1 className="text-2xl md:text-3xl font-bold text-center md:text-left">🛍️ Available Products</h1>
+        {/* Contenedor responsivo para los filtros */}
+        <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-4">
           {categories.map((category) => (
             <button
               key={category}
-              className={` ${
+              className={`px-4 py-2 rounded-full transition-all duration-500 ease-in-out transform hover:scale-105 ${
                 selectedCategory === category
-                  ? "mt-3 bg-yellow-300 hover:bg-yellow-500 text-black text-sm py-2 px-6 rounded-full transition-all duration-500 ease-in-out transform hover:scale-110"
-                  : "mt-3 bg-gray-300 hover:bg-gray-500 text-black text-sm py-2 px-6 rounded-full transition-all duration-500 ease-in-out transform hover:scale-110"
+                  ? "bg-yellow-300 hover:bg-yellow-500 text-black"
+                  : "bg-gray-300 hover:bg-gray-500 text-black"
               }`}
               onClick={() => setSelectedCategory(category)}
             >

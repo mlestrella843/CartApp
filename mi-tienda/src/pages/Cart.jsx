@@ -22,45 +22,45 @@ const Cart = () => {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-center mb-8">🛒 Shopping Cart</h1>
+    <div className="p-4 md:p-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">🛒 Shopping Cart</h1>
 
       {cart.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">Your cart is empty.</p>
       ) : (
-        <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 transition-all duration-700 ease-out transform hover:-translate-y-2 hover:shadow-2xl">
+        <div className="max-w-lg md:max-w-3xl mx-auto bg-white shadow-md rounded-lg p-4 md:p-6 transition-all duration-700 ease-out transform hover:-translate-y-2 hover:shadow-2xl">
           {cart.map((product) => (
             <div
               key={product.id}
-              className="flex justify-between items-center border-b py-4 transition-all duration-700 ease-out transform hover:scale-105"
+              className="flex flex-col md:flex-row justify-between items-center border-b py-4 transition-all duration-700 ease-out transform hover:scale-105"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col md:flex-row items-center gap-4">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-20 h-20 rounded-md hover:scale-110 transition-transform duration-500"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-md hover:scale-110 transition-transform duration-500"
                 />
-                <div>
-                  <h3 className="text-lg font-semibold">{product.name}</h3>
+                <div className="text-center md:text-left">
+                  <h3 className="text-md md:text-lg font-semibold">{product.name}</h3>
                   <p className="text-gray-700 font-bold">${product.price} x {product.quantity}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mt-2 md:mt-0">
                 <button
-                  className="bg-gray-300 px-3 py-1 rounded-lg hover:bg-gray-400 transition-transform duration-500 hover:scale-110"
+                  className="bg-gray-300 px-2 py-1 rounded-lg hover:bg-gray-400 transition-transform duration-500 hover:scale-110"
                   onClick={() => decreaseQuantity(product.id)}
                 >
                   -
                 </button>
                 <span className="font-semibold">{product.quantity}</span>
                 <button
-                  className="bg-gray-300 px-3 py-1 rounded-lg hover:bg-gray-400 transition-transform duration-500 hover:scale-110"
+                  className="bg-gray-300 px-2 py-1 rounded-lg hover:bg-gray-400 transition-transform duration-500 hover:scale-110"
                   onClick={() => increaseQuantity(product.id)}
                 >
                   +
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-all duration-500 ease-in-out transform hover:scale-110"
+                  className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded-lg transition-all duration-500 ease-in-out transform hover:scale-110"
                   onClick={() => removeProduct(product.id)}
                 >
                   ❌
@@ -68,7 +68,7 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <div className="mt-4 text-right text-xl font-bold">
+          <div className="mt-4 text-right text-lg md:text-xl font-bold">
             Total: ${cart.reduce((acc, product) => acc + product.price * product.quantity, 0)}
           </div>
           <button
@@ -84,3 +84,4 @@ const Cart = () => {
 };
 
 export default Cart;
+

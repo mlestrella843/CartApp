@@ -7,9 +7,21 @@ const categories = ["All", ...new Set(products.map((p) => p.category))];
 const Home = () => {
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [notification, setNotification] = useState(null);
+  const [addedProducts, setAddedProducts] = useState({});
 
   const addToCart = (product) => {
     dispatch({ type: "ADD_PRODUCT", payload: product });
+    setNotification(`${product.name} added to cart!`);
+    
+    // ✅ Marcar producto como añadido
+    setAddedProducts((prev) => ({ ...prev, [product.id]: true }));
+    
+    // ✅ Ocultar notificación después de 2 segundos
+    setTimeout(() => {
+      setNotification(null);
+      setAddedProducts((prev) => ({ ...prev, [product.id]: false }));
+    }, 2000);
   };
 
   const filteredProducts =
@@ -19,10 +31,16 @@ const Home = () => {
 
   return (
     <div className="p-4 md:p-8">
-      {/* Contenedor principal para el título y los filtros */}
+     {notification && (
+      <div className="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-md transition-opacity duration-500 ease-in-out opacity-100">
+        {notification}
+      </div>
+    )}
+
       <div className="flex flex-col md:flex-row md:justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-center md:text-left">🛍️ Available Products</h1>
-        {/* Contenedor responsivo para los filtros */}
+        <h1 className="text-2xl md:text-3xl font-bold text-center md:text-left">
+          🛍️ Available Products
+        </h1>
         <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-4">
           {categories.map((category) => (
             <button
@@ -40,7 +58,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Mostrar mensaje si no hay productos en la categoría */}
       {filteredProducts.length === 0 ? (
         <p className="text-center text-gray-500 text-lg mt-10">
           No products found in this category.
@@ -50,7 +67,7 @@ const Home = () => {
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-2xl transition-all duration-700 ease-out transform hover:-translate-y-2 hover:scale-105 p-4 text-center"
+              className="relative bg-white rounded-lg shadow-md hover:shadow-2xl transition-all duration-700 ease-out transform hover:-translate-y-2 hover:scale-105 p-4 text-center"
             >
               <img
                 src={product.image}
@@ -61,6 +78,14 @@ const Home = () => {
                 <h3 className="text-lg font-semibold">{product.name}</h3>
                 <p className="text-gray-700 font-bold">${product.price}</p>
               </div>
+              
+              {/* ✅ Mensaje de "Added" sobre la tarjeta */}
+              {addedProducts[product.id] && (
+                <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded shadow-md">
+                  Added
+                </div>
+              )}
+              
               <button
                 className="mt-3 bg-yellow-300 hover:bg-yellow-500 text-black text-sm py-2 px-6 rounded-full transition-all duration-500 ease-in-out transform hover:scale-110"
                 onClick={() => addToCart(product)}

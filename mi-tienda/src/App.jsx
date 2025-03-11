@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Car from "./pages/Car";
+import Cart from "./pages/Cart";
 
 const App = () => {
   useEffect(() => {
@@ -17,7 +17,7 @@ const App = () => {
         <main className="flex-grow overflow-y-auto pt-16 pb-16">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Car />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
         <Footer className="w-full z-10" />

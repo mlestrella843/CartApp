@@ -24,39 +24,39 @@ const Cart = () => {
       {cart.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">Your cart is empty.</p>
       ) : (
-        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-4 md:p-6">
+        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-4 md:p-6 overflow-x-auto">
           {cart.map((product) => (
             <div
               key={product.id}
-              className="flex flex-col md:flex-row justify-between items-center border-b py-4 gap-4 md:gap-6"
+              className="flex flex-col sm:flex-row justify-between items-center border-b py-4 gap-4 sm:gap-6"
             >
-              <div className="flex items-center gap-4 w-full md:w-auto">
+              <div className="flex items-center gap-4 w-full sm:w-auto">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-24 h-24 object-cover rounded-lg"
+                  className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
                 />
-                <div className="text-center md:text-left">
-                  <h3 className="text-lg font-semibold">{product.name}</h3>
+                <div className="text-center sm:text-left">
+                  <h3 className="text-md sm:text-lg font-semibold">{product.name}</h3>
                   <p className="text-gray-700 font-bold">${product.price}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 md:gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
                 <button
-                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-3 rounded"
+                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-2 sm:px-3 rounded"
                   onClick={() => decreaseQty(product.id)}
                 >
                   ➖
                 </button>
-                <span className="text-lg font-bold">{product.quantity}</span>
+                <span className="text-md sm:text-lg font-bold">{product.quantity}</span>
                 <button
-                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-3 rounded"
+                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-2 sm:px-3 rounded"
                   onClick={() => increaseQty(product.id)}
                 >
                   ➕
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-lg"
+                  className="bg-red-500 hover:bg-red-700 text-white py-2 px-3 sm:px-4 rounded-lg"
                   onClick={() => removeFromCart(product.id)}
                 >
                   ❌
@@ -64,7 +64,7 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <div className="mt-4 text-center md:text-right text-xl font-bold">
+          <div className="mt-4 text-center sm:text-right text-lg sm:text-xl font-bold">
             Total: ${cart.reduce((acc, product) => acc + product.price * product.quantity, 0)}
           </div>
         </div>

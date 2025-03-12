@@ -1,30 +1,14 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // Usa el almacenamiento local
-import cartReducer from "./cartReducer"; // Importamos el reducer del carrito
+import storage from "redux-persist/lib/storage";
+import cartReducer from "./cartReducer";
 
-// Configuración de persistencia
-const persistConfig = {
-  key: "root",
-  storage, // Se guardará en localStorage
-};
+const persistConfig = { key: "cart", storage };
+const persistedReducer = persistReducer(persistConfig, cartReducer);
 
-// Combinar reducers (en caso de agregar más en el futuro)
-const rootReducer = combineReducers({
-  cart: cartReducer,
+export const store = configureStore({
+  reducer: { cart: persistedReducer },
 });
 
-// Aplicamos Redux Persist al reducer
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// Crear el store con el reducer persistente
-const store = configureStore({
-  reducer: persistedReducer,
-});
-
-// Creamos el persistor para Redux Persist
-const persistor = persistStore(store);
-
-// Exportamos el store y el persistor
-export { store, persistor };
+export const persistor = persistStore(store);
 

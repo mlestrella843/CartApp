@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartReducer"; // ✅ Importamos la acción nueva
 import products from "../data/products";
 
 const categories = ["All", ...new Set(products.map((p) => p.category))];
@@ -11,13 +12,11 @@ const Home = () => {
   const [addedProducts, setAddedProducts] = useState({});
 
   const addToCart = (product) => {
-    dispatch({ type: "ADD_PRODUCT", payload: product });
+    dispatch(addProduct(product)); // ✅ Usamos la acción directa de Redux Toolkit
     setNotification(`${product.name} added to cart!`);
     
-    // ✅ Marcar producto como añadido
     setAddedProducts((prev) => ({ ...prev, [product.id]: true }));
     
-    // ✅ Ocultar notificación después de 2 segundos
     setTimeout(() => {
       setNotification(null);
       setAddedProducts((prev) => ({ ...prev, [product.id]: false }));
@@ -31,11 +30,11 @@ const Home = () => {
 
   return (
     <div className="p-4 md:p-8">
-     {notification && (
-      <div className="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-md transition-opacity duration-500 ease-in-out opacity-100">
-        {notification}
-      </div>
-    )}
+      {notification && (
+        <div className="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-md transition-opacity duration-500 ease-in-out opacity-100">
+          {notification}
+        </div>
+      )}
 
       <div className="flex flex-col md:flex-row md:justify-between items-center mb-6 gap-4">
         <h1 className="text-2xl md:text-3xl font-bold text-center md:text-left">
@@ -79,7 +78,6 @@ const Home = () => {
                 <p className="text-gray-700 font-bold">${product.price}</p>
               </div>
               
-              {/* ✅ Mensaje de "Added" sobre la tarjeta */}
               {addedProducts[product.id] && (
                 <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded shadow-md">
                   Added

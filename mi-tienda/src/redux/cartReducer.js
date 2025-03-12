@@ -1,49 +1,42 @@
-const cartReducer = (state = { cart: [] }, action) => {
-  switch (action.type) {
-    case "ADD_PRODUCT":
+import { createSlice } from "@reduxjs/toolkit";
+
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: { cart: [] },
+
+  reducers: {
+    addProduct: (state, action) => {
       const existingProduct = state.cart.find((p) => p.id === action.payload.id);
       if (existingProduct) {
-        return {
-          ...state,
-          cart: state.cart.map((p) =>
-            p.id === action.payload.id ? { ...p, quantity: p.quantity + 1 } : p
-          ),
-        };
+        existingProduct.quantity++;
+      } else {
+        state.cart.push({ ...action.payload, quantity: 1 });
       }
-      return {
-        ...state,
-        cart: [...state.cart, { ...action.payload, quantity: 1 }],
-      };
+    },
 
-    case "INCREASE_QUANTITY":
-      return {
-        ...state,
-        cart: state.cart.map((p) =>
-          p.id === action.payload ? { ...p, quantity: p.quantity + 1 } : p
-        ),
-      };
+    increaseQuantity: (state, action) => {
+      const product = state.cart.find((p) => p.id === action.payload);
+      if (product) product.quantity++;
+    },
 
-    case "DECREASE_QUANTITY":
-      return {
-        ...state,
-        cart: state.cart
-          .map((p) =>
-            p.id === action.payload
-              ? { ...p, quantity: p.quantity > 1 ? p.quantity - 1 : 1 }
-              : p
-          )
-          .filter((p) => p.quantity > 0), // Elimina productos con cantidad 0
-      };
+    decreaseQuantity: (state, action) => {
+      const product = state.cart.find((p) => p.id === action.payload);
+      if (product && product.quantity > 1) {
+        product.quantity--;
+      } else {
+        state.cart = state.cart.filter((p) => p.id !== action.payload);
+      }
+    },
 
-    case "REMOVE_PRODUCT":
-      return { ...state, cart: state.cart.filter((p) => p.id !== action.payload) };
+    removeProduct: (state, action) => {
+      state.cart = state.cart.filter((p) => p.id !== action.payload);
+    },
 
-    case "CLEAR_CART":
-      return { ...state, cart: [] };
+    clearCart: (state) => {
+      state.cart = [];
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-};
-
-export default cartReducer;
+export const { addProduct, increaseQuantity, decreaseQuantity, removeProduct, clearCart } = cartSlice.actions;
+export default cartSlice.reducer;

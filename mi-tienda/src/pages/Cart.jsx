@@ -28,35 +28,35 @@ const Cart = () => {
           {cart.map((product) => (
             <div
               key={product.id}
-              className="flex flex-col sm:flex-row justify-between items-center border-b py-4 gap-4 sm:gap-6"
+              className="flex flex-col sm:flex-row justify-between items-center border-b py-4 gap-4 sm:gap-6 text-center sm:text-left"
             >
-              <div className="flex items-center gap-4 w-full sm:w-auto">
+              <div className="flex flex-col items-center sm:flex-row sm:items-center gap-4 w-full">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
                 />
-                <div className="text-center sm:text-left">
+                <div>
                   <h3 className="text-md sm:text-lg font-semibold">{product.name}</h3>
                   <p className="text-gray-700 font-bold">${product.price}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex flex-row items-center justify-center gap-2 w-full sm:w-auto">
                 <button
-                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-2 sm:px-3 rounded"
+                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-2 rounded"
                   onClick={() => decreaseQty(product.id)}
                 >
                   ➖
                 </button>
                 <span className="text-md sm:text-lg font-bold">{product.quantity}</span>
                 <button
-                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-2 sm:px-3 rounded"
+                  className="bg-gray-300 hover:bg-gray-400 text-black py-1 px-2 rounded"
                   onClick={() => increaseQty(product.id)}
                 >
                   ➕
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white py-2 px-3 sm:px-4 rounded-lg"
+                  className="bg-red-400 hover:bg-red-700 text-white py-1 px-2 rounded"
                   onClick={() => removeFromCart(product.id)}
                 >
                   ❌

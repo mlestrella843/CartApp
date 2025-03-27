@@ -19,7 +19,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 md:p-8 mt-4">
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-6">🛒 Shopping Cart</h1>
       {cart.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">Your cart is empty.</p>
@@ -56,7 +56,7 @@ const Cart = () => {
                   ➕
                 </button>
                 <button
-                  className="bg-red-400 hover:bg-red-700 text-white py-1 px-2 rounded"
+                  className="bg-yellow-400 hover:bg-yellow-700 text-white py-1 px-2 rounded"
                   onClick={() => removeFromCart(product.id)}
                 >
                   ❌

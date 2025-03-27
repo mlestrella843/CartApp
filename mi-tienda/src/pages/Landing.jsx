@@ -69,9 +69,8 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="w-full h-full overflow-hidden"
           >
-            <img
-              src="/public/images/haven_chaise.jpg"
-              alt="Haven Chaise Sofa"
+            <img src="/images/haven_chaise.jpg" 
+                 alt="Haven Chaise"
               className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110 rounded-bl-3xl md:rounded-bl-none md:rounded-tr-3xl"
             />
           </motion.div>

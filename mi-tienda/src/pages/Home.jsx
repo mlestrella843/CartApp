@@ -40,7 +40,7 @@ const Home = () => {
           </div>
         )}
 
-        <div className="flex flex-col md:flex-row md:justify-between items-center mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:justify-between items-center mb-8 md:mb-12 gap-6">
           <h1 className="text-3xl md:text-4xl font-bold text-center md:text-left text-gray-800 tracking-tight">
             🛍️ Available Products
           </h1>

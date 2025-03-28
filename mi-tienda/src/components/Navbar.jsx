@@ -1,33 +1,24 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
-const Navbar = () => {
+// ✅ Navbar.jsx (Recibe props desde el layout)
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   const cartQuantity = useSelector((state) =>
     state.cart.cart.reduce((total, item) => total + item.quantity, 0)
   );
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white/70 backdrop-blur-md text-gray-800 shadow-md fixed w-full top-0 z-50 border-b border-yellow-100">
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-4 md:px-8 py-4">
-        {/* Logo */}
-        <Link to="/home" className="text-xl font-bold tracking-tight">
-          🛒 My Store
+    <nav className="bg-white text-gray-900 shadow-md fixed top-0 left-0 w-full z-50">
+      <div className="container mx-auto flex justify-between items-center p-4">
+        <Link to="/home" className="text-xl font-bold flex items-center gap-2">
+          🛒 <span>My Store</span>
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-6 items-center">
-          <Link
-            to="/home"
-            className="hover:text-yellow-600 transition-colors duration-300 font-medium"
-          >
-            Home
-          </Link>
-          <Link
-            to="/cart"
-            className="relative flex items-center hover:text-yellow-600 transition-colors duration-300 font-medium"
-          >
+        <div className="hidden md:flex gap-6">
+          <Link to="/home" className="hover:text-yellow-500 transition">Home</Link>
+          <Link to="/cart" className="relative flex items-center gap-1">
             🛍️ Cart
             {cartQuantity > 0 && (
               <span className="ml-2 inline-flex items-center justify-center bg-yellow-500 text-white text-xs font-bold rounded-full w-6 h-6 shadow-md">
@@ -37,9 +28,9 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden text-2xl text-yellow-600"
         >
           ☰
@@ -47,23 +38,23 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white/90 backdrop-blur-md left-0 w-full absolute top-full text-gray-800 py-4 flex flex-col items-center gap-4 border-t border-yellow-100 shadow-md rounded-b-2xl">
+      {isMenuOpen && (
+        <div className="md:hidden bg-white text-gray-800 py-4 flex flex-col items-center gap-4 border-t border-yellow-100 shadow-md">
           <Link
             to="/home"
-            className="hover:text-yellow-600 transition-colors duration-300 font-medium"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsMenuOpen(false)}
+            className="hover:text-yellow-600 font-medium"
           >
             Home
           </Link>
           <Link
             to="/cart"
-            className="flex items-center gap-2 relative font-medium hover:text-yellow-600 transition"
+            onClick={() => setIsMenuOpen(false)}
+            className="relative flex items-center gap-1 font-medium hover:text-yellow-600"
           >
-            🛍️ <span>Cart</span>
-
+            🛍️ Cart
             {cartQuantity > 0 && (
-              <span className="inline-flex items-center justify-center bg-yellow-500 text-white text-xs font-bold rounded-full w-6 h-6 shadow-md">
+              <span className="ml-2 inline-flex items-center justify-center bg-yellow-500 text-white text-xs font-bold rounded-full w-6 h-6 shadow-md">
                 {cartQuantity}
               </span>
             )}

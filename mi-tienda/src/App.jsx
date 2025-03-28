@@ -1,26 +1,43 @@
-import React, { useEffect } from "react";
+
+// ✅ App.jsx (Rutas)
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import Landing from "./pages/Landing";
 import LayoutWithNavbar from "./layouts/LayoutWithNavbar";
+import LayoutWithoutNavbar from "./layouts/LayoutWithoutNavbar";
 
 const App = () => {
-  useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
-  }, []);
-
   return (
     <Router>
       <Routes>
-        {/* Landing page SIN navbar */}
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={
+            <LayoutWithoutNavbar>
+              <Landing />
+            </LayoutWithoutNavbar>
+          }
+        />
 
-        {/* Rutas CON navbar y footer */}
-        <Route element={<LayoutWithNavbar />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-        </Route>
+        <Route
+          path="/home"
+          element={
+            <LayoutWithNavbar>
+              <Home />
+            </LayoutWithNavbar>
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <LayoutWithNavbar>
+              <Cart />
+            </LayoutWithNavbar>
+          }
+        />
       </Routes>
     </Router>
   );

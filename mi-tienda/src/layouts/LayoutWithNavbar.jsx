@@ -1,16 +1,23 @@
-// src/layouts/LayoutWithNavbar.jsx
-import { Outlet } from "react-router-dom";
+// ✅ LayoutWithNavbar.jsx
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const LayoutWithNavbar = () => {
+const LayoutWithNavbar = ({ children }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <div className="h-screen flex flex-col overflow-hidden scroll-smooth">
-      <Navbar className="fixed top-0 left-0 w-full z-10" />
-      <main className="flex-grow overflow-y-auto pt-16 pb-16">
-        <Outlet />
+    <div className="min-h-screen flex flex-col">
+      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+
+      <main
+        className={`flex-grow overflow-y-auto transition-all duration-300
+        ${isMenuOpen ? "pt-24" : "pt-8 md:pt-16"} pb-16`}
+      >
+        {children}
       </main>
-      <Footer className="w-full z-10" />
+
+      <Footer />
     </div>
   );
 };

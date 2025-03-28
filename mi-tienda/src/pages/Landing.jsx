@@ -1,81 +1,88 @@
-import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Landing() {
   return (
     <>
       <Helmet>
         <title>Haven Chaise | The Ultimate Reading Sofa</title>
-        <meta name="description" content="Transform any corner into a reading sanctuary with the Haven Chaise — soft, elegant, and built for quiet moments." />
+        <meta
+          name="description"
+          content="Transform any corner into a reading sanctuary with the Haven Chaise — soft, elegant, and built for quiet moments."
+        />
         <meta property="og:title" content="Haven Chaise | The Ultimate Reading Sofa" />
-        <meta property="og:description" content="A chaise lounge designed for deep comfort and deeper books." />
-        <meta property="og:image" content="/assets/haven_chaise.jpg" />
+        <meta
+          property="og:description"
+          content="A chaise lounge designed for deep comfort and deeper books."
+        />
+        <meta property="og:image" content="/images/haven_chaise.jpg" />
       </Helmet>
 
-      {/* HERO SECTION */}
-      <section className="relative h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 flex items-center justify-center px-4 md:px-8 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="bg-white/80 backdrop-blur-md border border-yellow-100 rounded-3xl shadow-2xl overflow-hidden w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 h-[90%] md:h-[80%]"
-        >
-          {/* LEFT: Text */}
-          <div className="p-6 md:p-12 flex flex-col justify-center">
-            <motion.p
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              className="text-yellow-600 text-lg font-semibold mb-3 tracking-tight"
-            >
-              Don’t miss this great opportunity
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-4xl md:text-5xl font-bold text-gray-800 mb-5 leading-tight tracking-tight"
-            >
-              Haven Chaise
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-gray-600 text-lg leading-relaxed mb-8 max-w-md"
-            >
-              The perfect companion for rainy days, warm blankets, and long novels.
-              <span className="block font-medium text-gray-700 mt-2">
-                Soft linen. Deep cushion. Instant escape.
-              </span>
-            </motion.p>
-
-            <motion.button
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition w-max hover:scale-105"
-            >
-              Buy Now – $499
-            </motion.button>
-          </div>
-
-          {/* RIGHT: Image with hover zoom */}
+      <div className="h-screen flex items-center justify-center bg-white px-4">
           <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="absolute top-10 text-center w-full px-4"
+            >
+              <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight">
+                <span className="text-gray-900">Welcome to </span>
+                <span className="text-yellow-500">My Store</span>
+              </h2>
+              <p className="mt-2 text-base md:text-lg text-gray-600 font-medium">
+                Your cozy furniture destination.
+              </p>
+          </motion.div>
+        <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-12 py-12 gap-8">
+          {/* Text Section with animations */}
+          <motion.div
+            className="text-center md:text-left md:w-1/2 space-y-4"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+              Haven <span className="text-yellow-500">Chaise</span>
+            </h1>
+            <p className="text-gray-600 text-base md:text-lg font-medium">
+              The perfect companion for rainy days, warm blankets, and long novels.
+            </p>
+            <p className="text-gray-800 font-semibold text-sm md:text-base">
+              <span className="text-yellow-600 font-bold">Soft linen.</span>{" "}
+              Deep cushion. Instant escape.
+            </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="pt-4"
+            >
+              <Link
+                to="/home"
+                className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded-full transition shadow"
+              >
+                Enter the Store
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Image Section */}
+          <motion.div
+            className="md:w-1/2"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="w-full h-full overflow-hidden"
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <img src="/images/havenchaise.jpg" 
-                 alt="Haven Chaise"
-              className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110 rounded-bl-3xl md:rounded-bl-none md:rounded-tr-3xl"
+            <img
+              src="/images/havenchaise.jpg"
+              alt="Haven Chaise"
+              className="w-full h-auto rounded-xl shadow-md hover:scale-105 transition-transform duration-500"
             />
           </motion.div>
-        </motion.div>
-      </section>
+        </div>
+      </div>
     </>
   );
 }
